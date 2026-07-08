@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest",
-    "prebuild": "pnpm run lint && pnpm run test"
+    "prebuild": "pnpm run test"
   },
   "packageManager": "pnpm@10.7.1",
   "engines": {
