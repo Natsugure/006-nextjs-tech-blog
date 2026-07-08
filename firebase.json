@@ -1,0 +1,18 @@
+{
+  "apphosting": {
+    "backendId": "nextjs-tech-blog-be",
+    "rootDir": "/",
+    "ignore": [
+      "node_modules",
+      ".git",
+      "firebase-debug.log",
+      "firebase-debug.*.log",
+      "functions"
+    ]
+  },
+  "frameworksBackend": {
+    "region": "asia-east1",
+    "minInstances": 0,
+    "maxInstances": 2
+  }
+}
