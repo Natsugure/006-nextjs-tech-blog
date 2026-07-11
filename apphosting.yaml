@@ -8,17 +8,15 @@ runConfig:
   # memoryMiB: 512
 
 # Environment variables and secrets.
-# env:
-  # Configure environment variables.
-  # See https://firebase.google.com/docs/app-hosting/configure#user-defined-environment
-  # - variable: MESSAGE
-  #   value: Hello world!
-  #   availability:
-  #     - BUILD
-  #     - RUNTIME
-
+env:
   # Grant access to secrets in Cloud Secret Manager.
-  # You can create secrets with the CLI command `firebase apphosting:secrets:set <secretName>`.
+  # Create the secret with `firebase apphosting:secrets:set QIITA_API_TOKEN`.
   # See https://firebase.google.com/docs/app-hosting/configure#secret-parameters
-  # - variable: MY_SECRET
-  #   secret: mySecretRef
+  - variable: QIITA_API_TOKEN
+    secret: QIITA_API_TOKEN
+    availability:
+      - BUILD
+  - variable: MICROCMS_API_KEY
+    secret: MICROCMS_API_KEY
+    availability:
+      - BUILD
