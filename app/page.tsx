@@ -1,33 +1,15 @@
 import Image from "next/image";
-import axios from "axios";
-
-interface QiitaResponse {
-  id: string;
-  title: string;
-  url: string;
-  image: string;
-  created_at: string;
-}
+import { getQiitaItems } from "@/services/api/qiita";
+import { getCmsItems } from "@/services/api/microCms";
 
 export default async function Home() {
-  const getQiitaItems = async () => {
-    const response = await axios.get<QiitaResponse[]>(
-      "https://qiita.com/api/v2/authenticated_user/items",
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.QIITA_API_TOKEN}`,
-        },
-      }
-    );
-    return response.data;
-  }
-
   const qiitaItems = (await getQiitaItems()).slice(0, 4);
+  const cmsItems = await getCmsItems();
 
   return (
     <>
     <div className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold mb-4">記事一覧</h2>
+      <h2 className="text-2xl font-bold mb-4"> Qiita 最近の記事</h2>
         <div className="flex flex-wrap gap-4">
           {qiitaItems.map((item, index) => (
             <a
@@ -42,6 +24,25 @@ export default async function Home() {
                 <h3 className="text-lg font-semibold mb-2 line-clamp-3">{item.title}</h3>
                 <p className="text-gray-600 text-sm mb-2">{item.created_at}</p>
               </div>
+            </a>
+          ))}
+        </div>
+
+      <h2 className="text-2xl font-bold mb-4 mt-8"> microCMS 最近の記事</h2>
+        <div className="flex flex-wrap gap-4">
+          {cmsItems.map((item, index) => (
+            <a
+              key={index}
+              href={`https://natsugure.microcms.io/${item.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card bg-white w-2xs shadow-md overflow-hidden block hover:shadow-lg transition-shadow"
+            >
+              <Image src={item.eyecatch.url} alt={item.title} width={400} height={300} loading="eager" />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold mb-2 line-clamp-3">{item.title}</h3>
+                <p className="text-gray-600 text-sm mb-2">{item.publishedAt}</p>
+              </div>  
             </a>
           ))}
         </div>
