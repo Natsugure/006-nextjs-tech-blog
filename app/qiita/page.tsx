@@ -1,33 +1,12 @@
+import { getQiitaItems } from "@/services/api/qiita";
 import Image from "next/image";
-import axios from "axios";
 
-interface QiitaResponse {
-  id: string;
-  title: string;
-  url: string;
-  image: string;
-  created_at: string;
-}
-
-export default async function Home() {
-  const getQiitaItems = async () => {
-    const response = await axios.get<QiitaResponse[]>(
-      "https://qiita.com/api/v2/authenticated_user/items",
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.QIITA_API_TOKEN}`,
-        },
-      }
-    );
-    return response.data;
-  }
-
-  const qiitaItems = (await getQiitaItems()).slice(0, 4);
+export default async function QiitaPage() {
+  const qiitaItems = await getQiitaItems();
 
   return (
-    <>
     <div className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold mb-4">記事一覧</h2>
+      <h2 className="text-2xl font-bold mb-4">Qiita 記事一覧</h2>
         <div className="flex flex-wrap gap-4">
           {qiitaItems.map((item, index) => (
             <a
@@ -45,7 +24,6 @@ export default async function Home() {
             </a>
           ))}
         </div>
-      </div>
-    </>
-  );
+    </div>
+  )
 }
