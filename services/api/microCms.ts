@@ -19,9 +19,13 @@ interface CmsContent {
   };
 }
 
-export async function getCmsItems() {
+export async function getCmsItems(limit?: number): Promise<CmsContent[]> {
+  const url = limit
+    ? `https://natsugure.microcms.io/api/v1/blogs?limit=${limit}`
+    : "https://natsugure.microcms.io/api/v1/blogs";
+
   const response = await axios.get<CmsResponse>(
-    "https://natsugure.microcms.io/api/v1/blogs",
+    url,
     {
       headers: {
         "X-API-KEY": process.env.MICROCMS_API_KEY,
