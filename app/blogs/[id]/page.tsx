@@ -8,7 +8,7 @@ export default async function BlogContent({ params }: { params: Promise<{ id: st
   const sanitizedContent = DomPurify.sanitize(cmsContent.content);
   
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container w-4xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">{cmsContent.title}</h1>
       <p className="text-gray-600 mb-4">Published at: {new Date(cmsContent.publishedAt).toLocaleDateString()}</p>
       <Image 
@@ -18,7 +18,7 @@ export default async function BlogContent({ params }: { params: Promise<{ id: st
         height={225}
         loading="eager"
       />
-      <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+      <div className="prose" dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
     </div>
   );
 }
