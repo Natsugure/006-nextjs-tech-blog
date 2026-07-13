@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export interface PostCardItem {
   url: string;
@@ -9,15 +10,16 @@ export interface PostCardItem {
 
 interface PostCardProps {
   item: PostCardItem;
+  newTab?: boolean;
 }
 
-export function PostCard({ item } : PostCardProps) {
+export function PostCard({ item, newTab } : PostCardProps) {
   return (
     <>
-      <a
+      <Link
         href={item.url}
-        target="_blank"
-        rel="noopener noreferrer"
+        target={newTab ? "_blank" : undefined}
+        rel={newTab ? "noopener noreferrer" : undefined}
         className="card bg-white w-2xs shadow-md overflow-hidden block hover:shadow-lg transition-shadow"
       >
         <Image src={item.eyecatchUrl} alt={item.title} width={400} height={300} loading="eager" />
@@ -25,7 +27,7 @@ export function PostCard({ item } : PostCardProps) {
           <h3 className="text-lg font-semibold mb-2 line-clamp-3">{item.title}</h3>
           <p className="text-gray-600 text-sm mb-2">{item.publishedAt}</p>
         </div>  
-      </a>
+      </Link>
     </>
   )
 }

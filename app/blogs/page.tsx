@@ -5,7 +5,7 @@ export default async function BlogListPage() {
   const getListItems = async (): Promise<PostCardItem[]> => {
     const cmsItems = await getCmsItems();
     return cmsItems.map((item) => ({
-      url: "",
+      url: `/blogs/${item.id}`,
       title: item.title,
       publishedAt: item.publishedAt,
       eyecatchUrl: item.eyecatch.url,

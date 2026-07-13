@@ -1,13 +1,13 @@
 import axios from "axios";
 
 interface CmsResponse {
-  contents: CmsContent[];
+  contents: CmsItem[];
   totalCount: number;
   offset: number;
   limit: number;
 }
 
-interface CmsContent {
+interface CmsItem {
   id: string;
   publishedAt: string;
   created_at: string;
@@ -19,7 +19,20 @@ interface CmsContent {
   };
 }
 
-export async function getCmsItems(limit?: number): Promise<CmsContent[]> {
+export interface CmsContent {
+  id: string;
+  publishedAt: string;
+  revisedAt: string;
+  title: string;
+  content: string;
+  eyecatch: {
+    url: string;
+    height: number;
+    width: number;
+  };
+}
+
+export async function getCmsItems(limit?: number): Promise<CmsItem[]> {
   const url = limit
     ? `https://natsugure.microcms.io/api/v1/blogs?limit=${limit}`
     : "https://natsugure.microcms.io/api/v1/blogs";
@@ -28,9 +41,21 @@ export async function getCmsItems(limit?: number): Promise<CmsContent[]> {
     url,
     {
       headers: {
-        "X-API-KEY": process.env.MICROCMS_API_KEY,
+        "X-MICROCMS-API-KEY": process.env.MICROCMS_API_KEY,
       },
     }
   );
   return response.data.contents;
+}
+
+export async function getCmsContent(id: string): Promise<CmsContent> {
+  const response = await axios.get<CmsContent>(
+    `https://natsugure.microcms.io/api/v1/blogs/${id}`,
+    {
+      headers: {
+        "X-MICROCMS-API-KEY": process.env.MICROCMS_API_KEY,
+      },
+    }
+  );
+  return response.data;
 }
