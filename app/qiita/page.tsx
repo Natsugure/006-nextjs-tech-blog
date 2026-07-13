@@ -19,7 +19,7 @@ export default async function QiitaPage() {
       <h2 className="text-2xl font-bold mb-4">Qiita 記事一覧</h2>
         <div className="flex flex-wrap gap-4">
           {qiitaItems.map((item, index) => (
-            <PostCard item={item} key={index} />
+            <PostCard item={item} key={index} newTab={true} />
           ))}
         </div>
     </div>

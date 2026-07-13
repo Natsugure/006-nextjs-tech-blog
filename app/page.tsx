@@ -32,16 +32,16 @@ export default async function Home() {
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between mb-4 mt-16">
         <h2 className="flex-none text-2xl font-bold">Qiita 最近の記事</h2>
-        <a
+        <Link
           href="/qiita"
           className="link"
         >
           もっと見る
-        </a>
+        </Link>
       </div>
       <div className="flex flex-wrap gap-4">
         {qiitaItems.map((item, index) => (
-          <PostCard item={item} key={index} />
+          <PostCard item={item} key={index} newTab={true} />
         ))}
       </div>
 
