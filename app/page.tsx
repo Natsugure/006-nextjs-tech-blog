@@ -1,6 +1,7 @@
 import { getQiitaItems } from "@/services/api/qiita";
 import { getCmsItems } from "@/services/api/microCms";
 import { PostCard, type PostCardItem } from "@/features/blogs/components/PostCard";
+import Link from "next/link";
 
 export default async function Home() {
   const getQiitaListItems = async (): Promise<PostCardItem[]> => {
@@ -16,7 +17,7 @@ export default async function Home() {
   const getCmsListItems = async (): Promise<PostCardItem[]> => {
     const cmsItems = await getCmsItems(4);
     return cmsItems.map((item) => ({
-      url: "",
+      url: `/blogs/${item.id}`,
       title: item.title,
       publishedAt: item.publishedAt,
       eyecatchUrl: item.eyecatch.url,
@@ -46,12 +47,12 @@ export default async function Home() {
 
       <div className="flex justify-between mb-4 mt-16">
         <h2 className="flex-none text-2xl font-bold"> microCMS 最近の記事</h2>
-        <a
-          href="/blogs"
+        <Link
+          href="/blogs/"
           className="link"
         >
           もっと見る
-        </a>
+        </Link>
       </div>
       <div className="flex flex-wrap gap-4">
         {cmsItems.map((item, index) => (
