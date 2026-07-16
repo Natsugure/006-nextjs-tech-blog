@@ -1,13 +1,13 @@
 import axios from "axios";
 
-interface CmsResponse {
+export interface CmsItemResponse {
   contents: CmsItem[];
   totalCount: number;
   offset: number;
   limit: number;
 }
 
-interface CmsItem {
+export interface CmsItem {
   id: string;
   publishedAt: string;
   created_at: string;
@@ -37,7 +37,7 @@ export async function getCmsItems(limit?: number): Promise<CmsItem[]> {
     ? `https://natsugure.microcms.io/api/v1/blogs?limit=${limit}`
     : "https://natsugure.microcms.io/api/v1/blogs";
 
-  const response = await axios.get<CmsResponse>(
+  const response = await axios.get<CmsItemResponse>(
     url,
     {
       headers: {

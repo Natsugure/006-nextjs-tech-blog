@@ -46,7 +46,7 @@ export default async function Home() {
       </div>
 
       <div className="flex justify-between mb-4 mt-16">
-        <h2 className="flex-none text-2xl font-bold"> microCMS 最近の記事</h2>
+        <h2 className="flex-none text-2xl font-bold">microCMS 最近の記事</h2>
         <Link
           href="/blogs/"
           className="link"
