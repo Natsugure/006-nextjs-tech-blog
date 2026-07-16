@@ -1,6 +1,6 @@
 import axios from "axios";
 
-interface QiitaResponse {
+export interface QiitaResponse {
   id: string;
   title: string;
   url: string;
