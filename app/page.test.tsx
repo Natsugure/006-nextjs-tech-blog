@@ -1,6 +1,7 @@
 import { afterEach, expect, test, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
 import axios from "axios"
+import openGraphScraper from "open-graph-scraper"
 import Page from "./page"
 
 vi.mock("axios", () => ({
@@ -9,7 +10,12 @@ vi.mock("axios", () => ({
   },
 }))
 
+vi.mock("open-graph-scraper", () => ({
+  default: vi.fn(),
+}))
+
 const mockedAxiosGet = vi.mocked(axios.get)
+const mockedOpenGraphScraper = vi.mocked(openGraphScraper)
 
 const qiitaItems = [
   {
@@ -37,12 +43,25 @@ const cmsItems = [
 
 afterEach(() => {
   mockedAxiosGet.mockReset()
+  mockedOpenGraphScraper.mockReset()
 })
 
 function mockHomeApiResponses() {
   mockedAxiosGet
     .mockResolvedValueOnce({ data: qiitaItems })
     .mockResolvedValueOnce({ data: { contents: cmsItems } })
+  mockedOpenGraphScraper.mockResolvedValueOnce({
+    error: false,
+    result: {
+      ogImage: [
+        {
+          url: "https://example.com/og-image.jpg",
+        }
+      ],
+    },
+    response: {},
+    html: "<html></html>",
+  })
 }
 
 test("トップページにh2タグが正しく表示される", async () => {
