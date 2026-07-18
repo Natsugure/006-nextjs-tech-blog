@@ -1,6 +1,8 @@
 import { PostCard, type PostCardItem } from "@/features/blogs/components/PostCard";
 import { getQiitaItems } from "@/services/api/qiita";
 
+export const revalidate = 300
+
 export default async function QiitaPage() {
   const getQiitaListItems = async (): Promise<PostCardItem[]> => {
     const qiitaItems = await getQiitaItems();
