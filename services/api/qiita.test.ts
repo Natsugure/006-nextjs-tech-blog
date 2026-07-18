@@ -20,7 +20,6 @@ test("正常系: Qiitaから記事一覧を取得できる", async () => {
       id: "1",
       title: "Qiita記事1",
       url: "https://qiita.com/items/1",
-      image: "",
       created_at: "2026-01-01T00:00:00.000Z",
     },
   ]
