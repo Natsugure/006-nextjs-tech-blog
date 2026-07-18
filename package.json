@@ -1,6 +1,6 @@
 {
   "name": "006-nextjs-tech-blog",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,7 +8,8 @@
     "start": "next start -p 3001",
     "lint": "eslint",
     "test": "vitest",
-    "prebuild": "pnpm run test"
+    "test:run": "vitest run",
+    "prebuild": "pnpm run test:run"
   },
   "packageManager": "pnpm@10.7.1",
   "engines": {
