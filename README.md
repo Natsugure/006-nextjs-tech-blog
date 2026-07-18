@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# なつぐれの技術ブログ
 
-## Getting Started
+Next.js 16 (App Router) で構築した技術ブログです。Qiitaに投稿した記事とmicroCMSで管理しているオリジナル記事を一覧・表示します。
 
-First, run the development server:
+## 主な機能
+
+- Qiita APIから自分の投稿記事を取得して一覧表示
+- microCMSで管理しているブログ記事の一覧・詳細表示
+- トップページでQiita記事・microCMS記事それぞれの最新4件を表示
+- open-graph-scraperでQiitaのOGPアイキャッチ画像を取得
+
+## 技術スタック
+
+- [Next.js 16](https://nextjs.org/) (App Router, React Compiler)
+- [React 19](https://react.react.dev/)
+- [Tailwind CSS](https://tailwindcss.com/) / [daisyUI](https://daisyui.com/)
+- [Firebase App Hosting](https://firebase.google.com/docs/app-hosting)
+- [Vitest](https://vitest.dev/) / Testing Library
+- [Qiita API](https://qiita.com/api/v2/docs)
+- [microCMS](https://microcms.io/)
+
+## 表示例
+
+![トップページ](./docs/images/example1.png)
+
+![記事詳細ページ1](./docs/images/example2.png)
+
+![記事詳細ページ2](./docs/images/example3.png)
+
+## セットアップ
+
+パッケージマネージャーには pnpm を使用しています。
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`.env.example` を参考に `.env` を作成し、必要な環境変数を設定してください。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cp .env.example .env
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| 変数名 | 説明 |
+| --- | --- |
+| `QIITA_API_TOKEN` | Qiita APIの認証トークン |
+| `MICROCMS_API_KEY` | microCMSのAPIキー |
 
-## Learn More
+## 開発サーバーの起動
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[http://localhost:3000](http://localhost:3000) をブラウザで開くと確認できます。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## テスト
 
-## Deploy on Vercel
+```bash
+pnpm test       # watchモードで実行
+pnpm test:run   # 1回だけ実行
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ビルド・本番起動
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm build
+pnpm start
+```
+
+`start` はポート3001で起動します（VSCodeの拡張機能とのポート競合を避けるため）。
+
+## デプロイ
+
+[Firebase App Hosting](https://firebase.google.com/docs/app-hosting) を使用してデプロイしています。設定内容は `firebase.json` と `apphosting.yaml` を参照してください。
